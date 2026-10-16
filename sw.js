@@ -1,4 +1,4 @@
-const CACHE='metercheck-public-v1.19.0-p1';
+const CACHE='metercheck-public-v1.19.0-p2';
 const CORE=['./','./index.html','./vendor.js','./manifest.webmanifest','./tnb_logo.png','./icon-192.png','./icon-512.png'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('metercheck-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
