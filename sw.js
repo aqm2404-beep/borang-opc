@@ -1,44 +1,5 @@
-/* Service worker: rangkaian dahulu, simpanan (cache) sebagai sandaran supaya boleh guna offline. */
-var CACHE = "opc-borang-v1.0.0";
-var FILES = [
-  "./",
-  "index.html",
-  "tetapan.html",
-  "style.css",
-  "common.js",
-  "pdf.js",
-  "form.js",
-  "tetapan.js",
-  "manifest.webmanifest",
-  "icon-192.png",
-  "icon-512.png",
-  "vendor/jspdf.umd.min.js",
-  "vendor/jspdf.plugin.autotable.min.js"
-];
-
-self.addEventListener("install", function (e) {
-  e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(FILES); }));
-  self.skipWaiting();
-});
-
-self.addEventListener("activate", function (e) {
-  e.waitUntil(
-    caches.keys().then(function (keys) {
-      return Promise.all(keys.filter(function (k) { return k !== CACHE; }).map(function (k) { return caches.delete(k); }));
-    }).then(function () { return self.clients.claim(); })
-  );
-});
-
-self.addEventListener("fetch", function (e) {
-  var req = e.request;
-  if (req.method !== "GET" || new URL(req.url).origin !== location.origin) return;
-  e.respondWith(
-    fetch(req).then(function (res) {
-      var copy = res.clone();
-      caches.open(CACHE).then(function (c) { c.put(req, copy); });
-      return res;
-    }).catch(function () {
-      return caches.match(req).then(function (hit) { return hit || caches.match("index.html"); });
-    })
-  );
-});
+const CACHE='metercheck-public-v1.19.0-p1';
+const CORE=['./','./index.html','./vendor.js','./manifest.webmanifest','./tnb_logo.png','./icon-192.png','./icon-512.png'];
+self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting())));
+self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('metercheck-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
+self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;const u=new URL(e.request.url);if(u.origin!==self.location.origin)return;if(e.request.mode==='navigate'){e.respondWith(fetch(e.request).then(r=>{const x=r.clone();caches.open(CACHE).then(c=>c.put('./index.html',x));return r}).catch(()=>caches.match('./index.html')));return;}e.respondWith(caches.match(e.request).then(h=>h||fetch(e.request).then(r=>{const x=r.clone();caches.open(CACHE).then(c=>c.put(e.request,x));return r})));});
