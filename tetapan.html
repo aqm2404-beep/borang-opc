@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#14213d">
+  <title>Tetapan - Borang OPC</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="logo">OPC</div>
+  <div>
+    <h1>Tetapan Wakil TNB</h1>
+    <p>Diisi sekali, digunakan pada setiap PDF</p>
+  </div>
+  <div class="spacer"></div>
+  <a class="nav" href="index.html">Borang</a>
+</header>
+
+<main>
+
+  <section class="card">
+    <h2>Maklumat Anda</h2>
+    <div class="body">
+      <div class="row">
+        <div><label class="f" for="nama">Nama</label><input type="text" id="nama" placeholder="cth: Ts. Ahmad bin Ali" autocomplete="name"></div>
+      </div>
+      <div class="row two">
+        <div><label class="f" for="noStaff">No Pekerja</label><input type="text" id="noStaff" placeholder="cth: 10012345" autocomplete="off"></div>
+        <div><label class="f" for="cawangan">DO / Cawangan</label><input type="text" id="cawangan" placeholder="cth: DO Rawang" autocomplete="off"></div>
+      </div>
+      <div class="row">
+        <div><label class="f" for="jawatan">Jawatan</label><input type="text" id="jawatan" placeholder="cth: Juruteknik T/Kanan" autocomplete="off"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Cop</h2>
+    <div class="body">
+      <div class="seg2">
+        <button type="button" id="modeTeks" aria-pressed="true">Taip teks cop</button>
+        <button type="button" id="modeImej" aria-pressed="false">Muat naik imej cop</button>
+      </div>
+
+      <div id="panelTeks">
+        <label class="f" for="copTeks">Teks cop (satu baris setiap baris cop)</label>
+        <textarea id="copTeks" rows="5" placeholder="Biarkan kosong untuk dijana automatik daripada maklumat di atas"></textarea>
+        <p class="hint">Dicetak dalam kotak bergaris biru, saiz huruf menyesuaikan diri.</p>
+        <button type="button" class="btn small" id="btnAutoCop" style="margin-top:8px">Isi daripada maklumat di atas</button>
+      </div>
+
+      <div id="panelImej" class="hidden">
+        <label class="f" for="copFile">Imej cop</label>
+        <input type="file" id="copFile" accept="image/*">
+        <p class="hint">Tera cop pada kertas putih, ambil gambar terang dan lurus, kemudian muat naik. Imej dikecilkan automatik.</p>
+        <button type="button" class="btn small" id="btnRemoveImg" style="margin-top:8px">Buang imej</button>
+      </div>
+
+      <div class="cop-preview" id="copPreview"></div>
+    </div>
+  </section>
+
+  <div class="saved" id="saved"></div>
+  <a class="btn primary block" href="index.html" style="margin-top:8px">Siap, kembali ke borang</a>
+
+  <p class="foot">Maklumat disimpan dalam pelayar peranti ini sahaja dan tidak dihantar ke mana-mana pelayan. Peranti lain atau pelayar lain perlu diisi sendiri.</p>
+</main>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script src="common.js"></script>
+<script src="tetapan.js"></script>
+</body>
+</html>

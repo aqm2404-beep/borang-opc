@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#14213d">
+  <title>Borang Pemeriksaan Jangka OPC</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="logo">OPC</div>
+  <div>
+    <h1>Pemeriksaan Jangka OPC</h1>
+    <p>Senarai semak digital</p>
+  </div>
+  <div class="spacer"></div>
+  <a class="nav" href="tetapan.html">Tetapan</a>
+</header>
+
+<div class="progress">
+  <div class="track"><div class="fill" id="progressFill"></div></div>
+  <div class="label" id="progressLabel">0/22 diisi</div>
+</div>
+
+<main>
+
+  <div id="profileBanner"></div>
+
+  <section class="card">
+    <h2>Maklumat Projek</h2>
+    <div class="body">
+      <div class="row two">
+        <div><label class="f" for="sn">SN</label><input type="text" id="sn" autocomplete="off"></div>
+        <div><label class="f" for="tarikh">Tarikh</label><input type="date" id="tarikh"></div>
+      </div>
+      <div class="row two">
+        <div><label class="f" for="noProjek">No Projek</label><input type="text" id="noProjek" autocomplete="off"></div>
+        <div>
+          <label class="f" for="jenisJangka">Jenis Jangka</label>
+          <select id="jenisJangka">
+            <option value="">Pilih...</option>
+            <option value="1PH">1PH</option>
+            <option value="3PH">3PH</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div><label class="f" for="projek">Projek</label><input type="text" id="projek" autocomplete="off"></div>
+      </div>
+      <div class="row two">
+        <div><label class="f" for="jenisPengguna">Jenis Pengguna</label><input type="text" id="jenisPengguna" placeholder="cth: Teres" autocomplete="off"></div>
+        <div><label class="f" for="md">MD</label><input type="text" id="md" autocomplete="off"></div>
+      </div>
+      <div class="row">
+        <div>
+          <label class="f" for="pemeriksaan">Pemeriksaan</label>
+          <select id="pemeriksaan">
+            <option value="">Pilih...</option>
+            <option value="1/2/3">1/2/3 (wajib disertakan bersama lukisan yang telah diluluskan)</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Senarai Semak (22 Perkara)</h2>
+    <div class="summary">
+      <span class="badge ok">Lulus: <span id="cLulus">0</span></span>
+      <span class="badge bad">Gagal: <span id="cGagal">0</span></span>
+      <span class="badge na">Tiada: <span id="cTiada">0</span></span>
+      <span class="grow"></span>
+      <button class="btn small" type="button" id="btnAllPass">Semua Lulus</button>
+    </div>
+    <div id="checklist"></div>
+  </section>
+
+  <section class="card">
+    <h2>Keputusan Pemeriksaan</h2>
+    <div class="body">
+      <div class="keputusan">
+        <button type="button" class="lulus" id="kLulus" aria-pressed="false">LULUS</button>
+        <button type="button" class="gagal" id="kGagal" aria-pressed="false">GAGAL</button>
+      </div>
+      <p class="hint">Keputusan terisi sendiri: ada satu Gagal = GAGAL; semua 22 item diisi tanpa Gagal = LULUS. Boleh tukar manual.</p>
+      <div class="row" style="margin-top:12px">
+        <div>
+          <label class="f" for="catatan">Catatan / Ulasan (pilihan)</label>
+          <textarea id="catatan" placeholder="cth: Item 6 gagal, kabel bersaiz 10mm"></textarea>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Wakil Kontraktor</h2>
+    <div class="body">
+      <div class="row two">
+        <div><label class="f" for="namaKontraktor">Nama</label><input type="text" id="namaKontraktor" autocomplete="off"></div>
+        <div><label class="f" for="hpKontraktor">No H/P</label><input type="tel" id="hpKontraktor" placeholder="01X-XXXXXXX" autocomplete="off"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="links">
+    <button type="button" class="btn wa block" id="btnWA">Hantar ringkasan teks ke WhatsApp</button>
+    <button type="button" class="btn ghost block" id="btnReset">Kosongkan borang</button>
+  </div>
+
+  <p class="foot">Borang OPC v<span id="ver"></span></p>
+</main>
+
+<div class="actionbar">
+  <button type="button" class="btn" id="btnPreview">Pratonton</button>
+  <button type="button" class="btn dark" id="btnDownload">Muat Turun PDF</button>
+  <button type="button" class="btn primary" id="btnShare">Kongsi PDF</button>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script src="vendor/jspdf.umd.min.js"></script>
+<script src="vendor/jspdf.plugin.autotable.min.js"></script>
+<script src="common.js"></script>
+<script src="pdf.js"></script>
+<script src="form.js"></script>
+</body>
+</html>
